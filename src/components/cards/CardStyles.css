@@ -1,0 +1,220 @@
+/* Book Cards */
+.book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.book-card {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.book-card h3 {
+    font-size: 1.1rem;
+    color: #75B34C;
+    font-family: "Original Surfer", sans-serif;
+}
+
+.book-cover {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.book-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.book-info {
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-info h3 {
+    font-family: "Original Surfer", sans-serif;
+    font-size: 1.1rem;
+}
+
+.book-info p {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
+
+/* Movie Cards */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.movie-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.movie-card:hover {
+    transform: scale(1.03);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+}
+
+.movie-info {
+    padding: 0.8rem;
+    text-align: center;
+}
+
+.movie-info h3 {
+    margin: 0.5rem 0 0.2rem;
+    font-size: 1.1rem;
+    color: #8A4CB3;
+}
+
+.movie-info p {
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+}
+
+.media-card {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    text-align: center;
+}
+
+.media-card:hover {
+    transform: scale(1.03);
+}
+
+.media-image {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    display: block;
+}
+
+.favorite-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    z-index: 3;
+    width: 32px;
+    height: 32px;
+}
+
+.favorite-icon {
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    pointer-events: none; /* щоб Safari не з’їжджав */
+}
+
+.favorite-button:hover .favorite-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* ---------- Dark Theme Styles ---------- */
+body.dark-theme {
+    background-color: #222;
+    color: #eee;
+}
+
+body.dark-theme .media-card,
+body.dark-theme .book-card,
+body.dark-theme .movie-card {
+    background-color: #333;
+    border-color: #555;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3 {
+    color: #e9c3ff;
+}
+
+body.dark-theme .media-card p,
+body.dark-theme .book-info p,
+body.dark-theme .movie-info p {
+    color: #ccc;
+}
+
+/* ---------- Login Button ---------- */
+.login-button {
+    background-color: #8A4CB3;
+    color: white;
+    border: 2px solid #8A4CB3;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.login-button:hover {
+    background-color: white;
+    color: #8A4CB3;
+}
+
+body.dark-theme .login-button {
+    background-color: #e9c3ff;
+    color: #222;
+    border: 2px solid #e9c3ff;
+}
+
+body.dark-theme .login-button:hover {
+    background-color: transparent;
+    color: #e9c3ff;
+}
+
+/* ---------- Book Info ---------- */
+.book-info {
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-info h3 {
+    font-family: "Original Surfer", sans-serif;
+    font-size: 1.1rem;
+}
+
+.book-info p {
+    font-family: "Work Sans", sans-serif;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
