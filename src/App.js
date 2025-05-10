@@ -1,17 +1,14 @@
-// src/App.js
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Books from './pages/Books'
-import Movies from './pages/Movies'
-import Series from './pages/Series'
-import Cartoons from './pages/Cartoons'
-import FavoritesPage from './pages/FavoritesPage'
-import Navbar from './components/navbar/Navbar'
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Books from './pages/Books';
+import Movies from './pages/Movies';
+import Series from './pages/Series';
+import Cartoons from './pages/Cartoons';
+import FavoritesPage from './pages/FavoritesPage';
+import Navbar from './components/navbar/Navbar';
+import './App.css';
 
 export default function App() {
-    const [user, setUser] = useState(null)
-
     return (
         <Router>
             <Navbar />
@@ -26,5 +23,5 @@ export default function App() {
                 </Routes>
             </div>
         </Router>
-    )
+    );
 }

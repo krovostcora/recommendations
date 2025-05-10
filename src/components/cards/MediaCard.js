@@ -1,69 +1,161 @@
-// src/components/cards/MediaCard.js
 import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { doc, setDoc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '../../firebase';
+import { doc, setDoc, deleteDoc, getDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
 import StarRating from '../StarRating';
 import './CardStyles.css';
+import { useAuth } from "../../context/AuthContext";
+import PropTypes from 'prop-types';
 
-export default function MediaCard({ id, title, year, rating, poster, type, country, author, cover }) {
-    const [user] = useAuthState(auth);
+
+export default function MediaCard({
+                                      id,
+                                      title,
+                                      year,
+                                      rating = 0,
+                                      poster,
+                                      cover,
+                                      type,
+                                      country,
+                                      author,
+                                      genres = []
+                                  }) {
+    const { user } = useAuth();
     const [isFavorite, setIsFavorite] = useState(false);
+    const [imageError, setImageError] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
 
-    const item = { id, title, year, rating, poster, type, country, author, cover };
-
-    useEffect(() => {
-        const savedLikes = localStorage.getItem('likes');
-        if (savedLikes) {
-            const likes = JSON.parse(savedLikes);
-            setIsFavorite(likes[id] || false);
-        }
-    }, [id]);
-
-    const handleLike = () => {
-        const savedLikes = localStorage.getItem('likes');
-        const likes = savedLikes ? JSON.parse(savedLikes) : {};
-
-        likes[id] = !likes[id];
-        setIsFavorite(likes[id]);
-
-        localStorage.setItem('likes', JSON.stringify(likes));
+    // Prepare the item data
+    const item = {
+        id: id.toString(),
+        title,
+        year: year || new Date().getFullYear(),
+        rating: rating,
+        poster: poster || cover || '',
+        type: type || 'other',
+        country: country || '',
+        author: author || '',
+        genres,
+        createdAt: new Date().toISOString()
     };
 
+    useEffect(() => {
+        if (!user) {
+            setIsFavorite(false);
+            return;
+        }
+
+        const checkFavoriteStatus = async () => {
+            try {
+                // Use the same ID format as in toggleFavorite
+                const docId = `media_${id.toString()}`;
+                const docRef = doc(db, "users", user.uid, "favorites", docId);
+                const docSnap = await getDoc(docRef);
+                setIsFavorite(docSnap.exists());
+            } catch (error) {
+                console.error("Error checking favorite:", error);
+                setIsFavorite(false);
+            }
+        };
+
+        checkFavoriteStatus();
+    }, [user, id]);
+
     const toggleFavorite = async () => {
+
         if (!user) {
             alert("Please login to save favorites");
             return;
         }
 
-        const docRef = doc(db, 'users', user.uid, 'favorites', id);
+        setIsProcessing(true);
+        try {
+            const docId = `media_${id.toString()}`;
+            const docRef = doc(db, "users", user.uid, "favorites", docId);
 
-        if (isFavorite) {
-            await deleteDoc(docRef);
-        } else {
-            await setDoc(docRef, item);
+            if (isFavorite) {
+                await deleteDoc(docRef);
+                setIsFavorite(false);
+            } else {
+                await setDoc(docRef, {
+                    id: id.toString(),
+                    title,
+                    year: year || new Date().getFullYear(),
+                    rating: rating || 0,
+                    poster: poster || cover || '',
+                    type: type || 'other',
+                    country: country || '',
+                    author: author || '',
+                    genres: genres || [],
+                    userId: user.uid,  // Explicitly store user ID
+                    docId,            // Store the compound ID
+                    createdAt: new Date().toISOString()
+                });
+                setIsFavorite(true);
+            }
+        } catch (error) {
+            console.error("Error toggling favorite:", error);
+            alert("Failed to update favorites");
+        } finally {
+            setIsProcessing(false);
         }
-
-        setIsFavorite(!isFavorite);
     };
 
     return (
         <div className="media-card">
-            <img src={poster || cover} alt={title} className="media-image" />
-            <button className="favorite-button" onClick={handleLike}>
-                <img
-                    src={isFavorite ? '/after_like.svg' : '/before_like.svg'}
-                    alt="like"
-                    className="favorite-icon"
-                />
+            <img
+                src={imageError ? '/placeholder-image.jpg' : poster || cover}
+                alt={title}
+                className="media-image"
+                onError={() => setImageError(true)}
+            />
+            <button
+                className="favorite-button"
+                onClick={toggleFavorite}
+
+                disabled={isProcessing}
+                aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            >
+                {isProcessing ? (
+                    <span className="loading-spinner" />
+                ) : (
+                    <img
+                        src={isFavorite ? '/after_like.svg' : '/before_like.svg'}
+                        alt=""
+                        className="favorite-icon"
+                    />
+                )}
             </button>
 
             <div className="media-info">
                 <h3>{title}</h3>
                 {author && <p><em>{author}</em></p>}
-                <p>{year}{country && ` • ${country}`}{type && ` • ${type}`}</p>
-                {rating && <StarRating rating={rating} />}
+                <p>
+                    {}
+                    {country && ` • ${country}`}
+                </p>
+                {genres.length > 0 && (
+                    <p className="genres">{genres.join(', ')}</p>
+                )}
+                {/*<StarRating rating={resolvedRating} />*/}
             </div>
         </div>
     );
 }
+
+MediaCard.propTypes = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    rating: PropTypes.number,
+    poster: PropTypes.string,
+    cover: PropTypes.string,
+    type: PropTypes.string,
+    country: PropTypes.string,
+    author: PropTypes.string,
+    genres: PropTypes.arrayOf(PropTypes.string)
+};
+
+MediaCard.defaultProps = {
+    rating: 0,
+    genres: []
+};

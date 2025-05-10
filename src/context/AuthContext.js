@@ -1,26 +1,47 @@
-import { createContext, useContext, useEffect, useState } from "react"
-import { onAuthStateChanged } from "firebase/auth"
-import { auth } from "../firebase"
+import { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../firebase";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null)
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
+    }
+    return context;
+};
 
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [authError, setAuthError] = useState(null);
+
+    // In your AuthContext.js
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-        })
-        return unsubscribe
-    }, [])
+        const unsubscribe = auth.onAuthStateChanged((authUser) => {
+            if (authUser) {
+                console.log("User authenticated:", authUser.uid);
+                setUser(authUser);
+            } else {
+                console.log("No user authenticated");
+                setUser(null);
+            }
+            setLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const value = {
+        user,
+        setUser,
+        loading,
+        error: authError
+    };
 
     return (
-        <AuthContext.Provider value={{ user }}>
-            {children}
+        <AuthContext.Provider value={value}>
+            {!loading && children}
         </AuthContext.Provider>
-    )
-}
-
-export function useAuth() {
-    return useContext(AuthContext)
-}
+    );
+};

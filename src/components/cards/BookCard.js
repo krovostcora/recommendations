@@ -2,7 +2,7 @@
 import React from 'react';
 import MediaCard from './MediaCard';
 
-export default function BookCard({ id, title, author, year, rating, cover }) {
+export default function BookCard({ id, title, author, year, rating = 0, cover }) {
     return (
         <MediaCard
             id={id}

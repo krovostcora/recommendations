@@ -1,32 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useAuth } from "../context/AuthContext";
 import { db } from '../firebase';
+import { useEffect, useState } from 'react';
 
-function Profile({ user }) {
+function Profile() {
+    const { user } = useAuth(); // Отримуємо користувача з контексту
     const [favorites, setFavorites] = useState([]);
     const [likes, setLikes] = useState({});
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            const userFavoritesRef = db.collection('users').doc(user.uid).collection('favorites');
-            const snapshot = await userFavoritesRef.get();
-            const favoriteItems = snapshot.docs.map(doc => doc.data());
-            setFavorites(favoriteItems);
+            if (user) {  // Make sure user is defined
+                const userFavoritesRef = db.collection('users').doc(user.uid).collection('favorites');
+                const snapshot = await userFavoritesRef.get();
+                const favoriteItems = snapshot.docs.map(doc => doc.data());
+                setFavorites(favoriteItems);
+            }
         };
 
-        if (user) {
-            fetchFavorites();
-        }
+        fetchFavorites();
 
-        // Завантажуємо збережені лайки з localStorage
         const savedLikes = localStorage.getItem('likes');
         if (savedLikes) {
             setLikes(JSON.parse(savedLikes));
         }
     }, [user]);
 
+
     const handleLike = (id) => {
         const updatedLikes = { ...likes };
-        updatedLikes[id] = !updatedLikes[id]; // Перемикаємо статус лайка
+        updatedLikes[id] = !updatedLikes[id];
 
         setLikes(updatedLikes);
         localStorage.setItem('likes', JSON.stringify(updatedLikes)); // Зберігаємо в localStorage
@@ -42,7 +44,7 @@ function Profile({ user }) {
                             <img src={item.image} alt={item.name} />
                             <h3>{item.name}</h3>
                             <button onClick={() => handleLike(item.id)}>
-                                {likes[item.id] ? '❤️' : '🤍'} {/* Іконка залежно від лайка */}
+                                {/*{likes[item.id] ? '❤️' : '🤍'} /!* Іконка залежно від лайка *!/*/}
                             </button>
                         </div>
                     ))

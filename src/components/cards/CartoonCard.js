@@ -1,8 +1,16 @@
-// CartoonCard.js
 import React from 'react';
 import MediaCard from './MediaCard';
+import PropTypes from 'prop-types';
 
-export default function CartoonCard({ id, title, year, country, type, poster }) {
+export default function CartoonCard({
+                                        id,
+                                        title,
+                                        year,
+                                        country,
+                                        type,
+                                        genres,
+                                        poster
+                                    }) {
     return (
         <MediaCard
             id={id}
@@ -10,7 +18,24 @@ export default function CartoonCard({ id, title, year, country, type, poster }) 
             year={year}
             country={country}
             type={type}
+            genres={genres}
             poster={poster}
         />
     );
 }
+
+CartoonCard.propTypes = {
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    title: PropTypes.string.isRequired,
+    year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    country: PropTypes.string,
+    type: PropTypes.string,
+    genres: PropTypes.arrayOf(PropTypes.string),
+    poster: PropTypes.string
+};
+
+CartoonCard.defaultProps = {
+    genres: [],
+    country: '',
+    type: ''
+};
