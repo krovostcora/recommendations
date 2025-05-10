@@ -218,3 +218,10 @@ body.dark-theme .login-button:hover {
     font-size: 0.9rem;
     margin: 0.3rem 0;
 }
+
+.media-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}

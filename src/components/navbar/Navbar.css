@@ -1,0 +1,42 @@
+/* src/components/navbar/Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #8A4CB3;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navbar a {
+    color: white;
+    font-weight: 800;
+    transition: color 0.3s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #75B34C;
+}
+
+.favorite-icon-link {
+    display: flex;
+    align-items: center;
+}
+
+.favorite-icon {
+    width: 28px;
+    height: 28px;
+    filter: brightness(0) invert(1);
+}

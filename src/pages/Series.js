@@ -27,7 +27,15 @@ export default function Series() {
             <h2>Series Recommendations</h2>
             <div className="movie-grid">
                 {series.map((s, idx) => (
-                    <SeriesCard key={idx} {...s} />
+                    <SeriesCard
+                        key={idx}
+                        id={s.title}
+                        title={s.title}
+                        year={s.year}
+                        country={s.country}
+                        rating={s.rating}
+                        poster={s.poster}
+                    />
                 ))}
             </div>
         </>

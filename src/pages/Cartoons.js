@@ -32,7 +32,16 @@ export default function Cartoons() {
             <h2>Cartoon Recommendations</h2>
             <div className="movie-grid">
                 {cartoons.map((cartoon, idx) => (
-                    <CartoonCard key={idx} {...cartoon} />
+                    <CartoonCard
+                        key={idx}
+                        id={cartoon.title}
+                        title={cartoon.title}
+                        year={cartoon.year}
+                        country={cartoon.country}
+                        type={cartoon.type}
+                        genres={cartoon.genres}
+                        poster={cartoon.poster}
+                    />
                 ))}
             </div>
         </>

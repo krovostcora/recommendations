@@ -26,6 +26,7 @@ export default function Books() {
                 {books.map((book, idx) => (
                     <BookCard
                         key={idx}
+                        id={book.title} // Using title as id for simplicity
                         title={book.title}
                         author={book.author}
                         year={book.year}

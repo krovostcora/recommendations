@@ -3,6 +3,7 @@ import { db } from '../firebase';
 
 function Profile({ user }) {
     const [favorites, setFavorites] = useState([]);
+    const [likes, setLikes] = useState({});
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -15,7 +16,21 @@ function Profile({ user }) {
         if (user) {
             fetchFavorites();
         }
+
+        // Завантажуємо збережені лайки з localStorage
+        const savedLikes = localStorage.getItem('likes');
+        if (savedLikes) {
+            setLikes(JSON.parse(savedLikes));
+        }
     }, [user]);
+
+    const handleLike = (id) => {
+        const updatedLikes = { ...likes };
+        updatedLikes[id] = !updatedLikes[id]; // Перемикаємо статус лайка
+
+        setLikes(updatedLikes);
+        localStorage.setItem('likes', JSON.stringify(updatedLikes)); // Зберігаємо в localStorage
+    };
 
     return (
         <div className="profile-page">
@@ -26,6 +41,9 @@ function Profile({ user }) {
                         <div key={item.id} className="favorite-item">
                             <img src={item.image} alt={item.name} />
                             <h3>{item.name}</h3>
+                            <button onClick={() => handleLike(item.id)}>
+                                {likes[item.id] ? '❤️' : '🤍'} {/* Іконка залежно від лайка */}
+                            </button>
                         </div>
                     ))
                 ) : (
@@ -35,3 +53,5 @@ function Profile({ user }) {
         </div>
     );
 }
+
+export default Profile;
