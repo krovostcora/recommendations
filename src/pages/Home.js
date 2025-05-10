@@ -79,7 +79,7 @@ export default function Home() {
             <section className="scroll-section">
                 <h3>Random Picks</h3>
                 <div className="scroll-controls">
-                    <button onClick={() => scrollBy(-300)}>←</button>
+                    <button onClick={() => scrollBy(-100)}>←</button>
                     <div className="scroll-container" ref={scrollRef}>
                         {allItems.map((item, idx) => {
                             switch (item.type) {

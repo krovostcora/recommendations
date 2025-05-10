@@ -1,3 +1,4 @@
+// CartoonCard.js (updated for consistency)
 import React from 'react';
 import MediaCard from './MediaCard';
 import PropTypes from 'prop-types';
@@ -37,5 +38,6 @@ CartoonCard.propTypes = {
 CartoonCard.defaultProps = {
     genres: [],
     country: '',
-    type: ''
+    type: 'cartoon',
+    year: ''
 };

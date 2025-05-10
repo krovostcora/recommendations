@@ -5,6 +5,7 @@ import StarRating from '../StarRating';
 import './CardStyles.css';
 import { useAuth } from "../../context/AuthContext";
 import PropTypes from 'prop-types';
+import { onSnapshot } from 'firebase/firestore';
 
 
 export default function MediaCard({
@@ -31,7 +32,7 @@ export default function MediaCard({
         year: year || new Date().getFullYear(),
         rating: rating,
         poster: poster || cover || '',
-        type: type || 'other',
+        type: type,
         country: country || '',
         author: author || '',
         genres,
@@ -44,21 +45,19 @@ export default function MediaCard({
             return;
         }
 
-        const checkFavoriteStatus = async () => {
-            try {
-                // Use the same ID format as in toggleFavorite
-                const docId = `media_${id.toString()}`;
-                const docRef = doc(db, "users", user.uid, "favorites", docId);
-                const docSnap = await getDoc(docRef);
-                setIsFavorite(docSnap.exists());
-            } catch (error) {
-                console.error("Error checking favorite:", error);
-                setIsFavorite(false);
-            }
-        };
+        const docId = `media_${id.toString()}`;
+        const docRef = doc(db, "users", user.uid, "favorites", docId);
 
-        checkFavoriteStatus();
+        const unsubscribe = onSnapshot(docRef, (docSnap) => {
+            setIsFavorite(docSnap.exists());
+        }, (error) => {
+            console.error("Error with onSnapshot:", error);
+            setIsFavorite(false);
+        });
+
+        return () => unsubscribe(); // Clean up listener on unmount
     }, [user, id]);
+
 
     const toggleFavorite = async () => {
 
@@ -75,6 +74,12 @@ export default function MediaCard({
             if (isFavorite) {
                 await deleteDoc(docRef);
                 setIsFavorite(false);
+                const checkAgain = await getDoc(docRef);
+                if (checkAgain.exists()) {
+                    console.warn("Still exists after deletion!");
+                    setIsFavorite(true);
+                }
+
             } else {
                 await setDoc(docRef, {
                     id: id.toString(),
@@ -82,7 +87,7 @@ export default function MediaCard({
                     year: year || new Date().getFullYear(),
                     rating: rating || 0,
                     poster: poster || cover || '',
-                    type: type || 'other',
+                    type: type,
                     country: country || '',
                     author: author || '',
                     genres: genres || [],
