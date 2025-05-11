@@ -8,7 +8,7 @@ import MediaCard from "../components/cards/MediaCard";
 
 export default function FavoritesPage() {
     const { user } = useAuth();
-    const { favorites, loading, setFavorites } = useFavorites();
+    const { favorites, loading, removeFavorite } = useFavorites();
 
     if (!user) return <p>Please log in to view favorites</p>;
     if (loading) return <p>Loading...</p>;
@@ -30,7 +30,7 @@ export default function FavoritesPage() {
 
     const handleFavoriteToggle = (isNowFavorite, docId) => {
         if (!isNowFavorite) {
-            setFavorites(prev => prev.filter(item => item.docId !== docId));
+            removeFavorite(docId);
         }
     };
 

@@ -123,7 +123,6 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    background: rgba(0, 0, 0, 0.1); /* світло-сірий фон */
     border: none;
     padding: 4px;
     cursor: pointer;

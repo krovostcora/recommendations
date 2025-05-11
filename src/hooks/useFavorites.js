@@ -4,7 +4,7 @@ import { doc, setDoc, deleteDoc, getDoc, collection, getDocs } from 'firebase/fi
 import { useAuth } from '../context/AuthContext';
 
 export function useFavorites() {
-    const { user } = useAuth();
+    const {user} = useAuth();
     const [favorites, setFavorites] = useState({});
     const [loading, setLoading] = useState(true);
 
@@ -45,7 +45,7 @@ export function useFavorites() {
         if (favorites[item.docId]) {
             await deleteDoc(docRef);
             setFavorites(prev => {
-                const newFavs = { ...prev };
+                const newFavs = {...prev};
                 delete newFavs[item.docId];
                 return newFavs;
             });
@@ -58,12 +58,23 @@ export function useFavorites() {
         }
     };
 
+    const removeFavorite = async (docId) => {
+        if (!user) return;
+        const docRef = doc(db, "users", user.uid, "favorites", docId);
+        await deleteDoc(docRef);
+        setFavorites(prev => {
+            const updated = {...prev};
+            delete updated[docId];
+            return updated;
+        });
+    };
+
     return {
         favorites,
         isFavorite,
         toggleFavorite,
-        loading,
-        setFavorites
+        removeFavorite,
+        setFavorites,
+        loading
     };
-
 }
