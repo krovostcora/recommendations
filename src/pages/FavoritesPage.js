@@ -1,9 +1,5 @@
 import { useAuth } from '../context/AuthContext';
 import { useFavorites } from '../hooks/useFavorites';
-import BookCard from '../components/cards/BookCard';
-import MovieCard from '../components/cards/MovieCard';
-import SeriesCard from '../components/cards/SeriesCard';
-import CartoonCard from '../components/cards/CartoonCard';
 import MediaCard from "../components/cards/MediaCard";
 
 export default function FavoritesPage() {
@@ -21,19 +17,18 @@ export default function FavoritesPage() {
         return acc;
     }, {});
 
-    const typeToComponent = {
-        book: BookCard,
-        movie: MovieCard,
-        series: SeriesCard,
-        cartoon: CartoonCard
-    };
-
     const handleFavoriteToggle = (isNowFavorite, docId) => {
         if (!isNowFavorite) {
             removeFavorite(docId);
         }
     };
 
+    const typeNames = {
+        book: "Books",
+        movie: "Movies",
+        series: "TV Series",
+        cartoon: "Cartoons"
+    };
 
     return (
         <div style={{ padding: '20px' }}>
@@ -41,27 +36,24 @@ export default function FavoritesPage() {
             {favoritesArray.length === 0 ? (
                 <p>No favorites saved yet</p>
             ) : (
-                Object.entries(categorized).map(([type, items]) => {
-                    const Component = typeToComponent[type] || MediaCard;
-                    return (
-                        <div key={type} style={{ marginBottom: '30px' }}>
-                            <h3>{type} ({items.length})</h3>
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-                                gap: '20px'
-                            }}>
-                                {items.map(item => (
-                                    <Component
-                                        key={item.docId}
-                                        {...item}
-                                        onFavoriteToggle={handleFavoriteToggle}
-                                    />
-                                ))}
-                            </div>
+                Object.entries(categorized).map(([type, items]) => (
+                    <div key={type} style={{ marginBottom: '30px' }}>
+                        <h3>{typeNames[type] || type} ({items.length})</h3>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                            gap: '20px'
+                        }}>
+                            {items.map(item => (
+                                <MediaCard
+                                    key={item.docId}
+                                    {...item}
+                                    onFavoriteToggle={handleFavoriteToggle}
+                                />
+                            ))}
                         </div>
-                    );
-                })
+                    </div>
+                ))
             )}
         </div>
     );

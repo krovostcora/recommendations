@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import { useFavorites } from '../../hooks/useFavorites';
 import './CardStyles.css';
 import { useAuth } from '../../context/AuthContext';
 import {deleteDoc, doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "../../firebase";
+import StarRating from '../StarRating';
 
 export default function MediaCard({
                                       id,
                                       title,
                                       year,
-                                      rating = 0,
+                                      rating ,
                                       poster,
                                       cover,
                                       type,
@@ -112,6 +112,7 @@ export default function MediaCard({
                 <h3>{title}</h3>
                 {author && <p><em>{author}</em></p>}
                 <p>{year} {country && `• ${country}`}</p>
+                <StarRating rating={Number(rating) || 0} />
                 {genres.length > 0 && <p className="genres">{genres.join(', ')}</p>}
             </div>
         </div>
