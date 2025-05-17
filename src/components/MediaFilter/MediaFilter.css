@@ -26,7 +26,7 @@
 }
 
 .tab-button.active {
-    color: #4a6fa5;
+    color: #75B34C;
     font-weight: 600;
 }
 
@@ -37,7 +37,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: #4a6fa5;
+    background: #75B34C;
 }
 
 .filter-content {
@@ -69,9 +69,9 @@
 }
 
 .filter-button.active {
-    background: #4a6fa5;
+    background: #75B34C;
     color: white;
-    border-color: #4a6fa5;
+    border-color: #75B34C;
 }
 
 .sort-options {
@@ -89,46 +89,7 @@
 }
 
 .sort-option input {
-    accent-color: #4a6fa5;
-}
-
-.rating-filter {
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.rating-filter label {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 14px;
-}
-
-.rating-filter input[type="range"] {
-    width: 100%;
-    accent-color: #4a6fa5;
-}
-
-.rating-stars {
-    display: flex;
-    gap: 5px;
-    font-size: 20px;
-}
-
-.rating-stars .star {
-    color: #ddd;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.rating-stars .star.filled {
-    color: #FFC107;
-}
-
-.rating-stars .star:hover {
-    transform: scale(1.2);
+    accent-color: #75B34C;
 }
 
 .clear-all-filters {
@@ -148,113 +109,7 @@
     background: #d32f2f;
 }
 
-/* Dark Theme */
-body.dark-theme .filter-container {
-    background: #222;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-body.dark-theme .filter-tabs {
-    border-color: #444;
-}
-
-body.dark-theme .tab-button {
-    color: #aaa;
-}
-
-body.dark-theme .tab-button.active {
-    color: #5d8ac8;
-}
-
-body.dark-theme .tab-button.active::after {
-    background: #5d8ac8;
-}
-
-body.dark-theme .filter-button {
-    background: #333;
-    border-color: #555;
-    color: #e0e0e0;
-}
-
-body.dark-theme .filter-button:hover {
-    background: #444;
-}
-
-body.dark-theme .filter-button.active {
-    background: #5d8ac8;
-    border-color: #5d8ac8;
-}
-
-body.dark-theme .sort-option {
-    color: #e0e0e0;
-}
-
-body.dark-theme .rating-filter label {
-    color: #e0e0e0;
-}
-
-body.dark-theme .clear-all-filters {
-    background: #ff6b6b;
-}
-
-body.dark-theme .clear-all-filters:hover {
-    background: #ff5252;
-}
-
-/* Оновлений фільтр рейтингу */
-.rating-filter {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-}
-
-.rating-filter-label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.rating-stars-filter {
-    display: flex;
-    gap: 5px;
-    font-size: 24px;
-}
-
-.rating-star-filter {
-    color: #ddd;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-}
-
-.rating-star-filter.active {
-    color: #FFC107;
-}
-
-.rating-star-filter:hover {
-    transform: scale(1.2);
-}
-
-.rating-value-display {
-    font-size: 14px;
-    margin-top: 5px;
-    font-weight: 500;
-    color: #4a6fa5;
-}
-
-/* Додаткові стилі для темної теми */
-body.dark-theme .rating-filter-label {
-    color: #e0e0e0;
-}
-
-body.dark-theme .rating-value-display {
-    color: #5d8ac8;
-}
-
-/* Add to MediaFilter.css */
+/* Rating Filter Styles */
 .rating-filter-container {
     display: flex;
     flex-direction: column;
@@ -272,7 +127,7 @@ body.dark-theme .rating-value-display {
 }
 
 .rating-value {
-    color: #4a6fa5;
+    color: #75B34C;
     font-weight: 600;
 }
 
@@ -317,9 +172,58 @@ body.dark-theme .rating-value-display {
     color: #f44336;
 }
 
-/* Dark theme styles */
+/* Dark Theme */
+body.dark-theme .filter-container {
+    background: #222;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .filter-tabs {
+    border-color: #444;
+}
+
+body.dark-theme .tab-button {
+    color: #aaa;
+}
+
+body.dark-theme .tab-button.active {
+    color: #75B34C;
+}
+
+body.dark-theme .tab-button.active::after {
+    background: #75B34C;
+}
+
+body.dark-theme .filter-button {
+    background: #333;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+body.dark-theme .filter-button:hover {
+    background: #444;
+}
+
+body.dark-theme .filter-button.active {
+    color: #222222;
+    background: #75B34C;
+    border-color: #75B34C;
+}
+
+body.dark-theme .sort-option {
+    color: #e0e0e0;
+}
+
+body.dark-theme .clear-all-filters {
+    background: #ff6b6b;
+}
+
+body.dark-theme .clear-all-filters:hover {
+    background: #ff5252;
+}
+
 body.dark-theme .rating-value {
-    color: #5d8ac8;
+    color: #75B34C;
 }
 
 body.dark-theme .star-filter {

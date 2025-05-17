@@ -4,7 +4,7 @@ import './CardStyles.css';
 import { useAuth } from '../../context/AuthContext';
 import {deleteDoc, doc, getDoc, setDoc} from "firebase/firestore";
 import {db} from "../../firebase";
-import StarRating from '../StarRating';
+import StarRating from '../../hooks/StarRating';
 
 export default function MediaCard({
                                       id,

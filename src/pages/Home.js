@@ -3,7 +3,7 @@ import books from '../components/json/books.json';
 import movies from '../components/json/movies.json';
 import series from '../components/json/series.json';
 import cartoons from '../components/json/cartoons.json';
-import MediaCard from '../components/cards/MediaCard';
+import MediaCard from '../components/MediaCard/MediaCard';
 
 function getRandomItems(arr, count) {
     const shuffled = [...arr].sort(() => 0.5 - Math.random());

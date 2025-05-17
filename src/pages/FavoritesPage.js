@@ -1,6 +1,6 @@
 import { useAuth } from '../context/AuthContext';
 import { useFavorites } from '../hooks/useFavorites';
-import MediaCard from "../components/cards/MediaCard";
+import MediaCard from "../components/MediaCard/MediaCard";
 
 export default function FavoritesPage() {
     const { user } = useAuth();

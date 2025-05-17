@@ -14,7 +14,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [authError, setAuthError] = useState(null);
+    const [authError] = useState(null);
 
     // In your AuthContext.js
     useEffect(() => {

@@ -1,8 +1,8 @@
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 
-export default function Login() {
+export default function LoginButton() {
     const { user, setUser } = useAuth();
 
     const login = async () => {
@@ -12,6 +12,7 @@ export default function Login() {
             setUser(res.user);
         } catch (error) {
             console.error("Login error:", error.message);
+            // Optionally show error to user
         }
     };
 
@@ -21,19 +22,17 @@ export default function Login() {
             setUser(null);
         } catch (error) {
             console.error("Logout error:", error.message);
+            // Optionally show error to user
         }
     };
 
-    return (
-        <div>
-            {user ? (
-                <>
-                    <p>Welcome, {user.displayName}</p>
-                    <button onClick={logout}>Logout</button>
-                </>
-            ) : (
-                <button onClick={login}>Login with Google</button>
-            )}
-        </div>
+    return user ? (
+        <button className="login-button" onClick={logout}>
+            Logout ({user.displayName?.split(" ")[0]})
+        </button>
+    ) : (
+        <button className="login-button" onClick={login}>
+            Login
+        </button>
     );
 }

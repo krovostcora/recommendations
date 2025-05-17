@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import MediaFilter from './MediaFilter/MediaFilter';
-import MediaCard from '../components/cards/MediaCard';
-import './FilterableMediaGrid.css';
+import MediaFilter from './MediaFilter';
+import MediaCard from '../MediaCard/MediaCard';
+import './MediaGrid.css';
 
-export function FilterableMediaGrid({ mediaItems, mediaType }) {
+export function MediaGrid({ mediaItems, mediaType }) {
     // Get all unique values for filters
     const allGenres = [...new Set(mediaItems.flatMap(item => item.genres || []))]
         .sort((a, b) => a.localeCompare(b, { sensitivity: 'base' }));
