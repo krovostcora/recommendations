@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/recommendations/static/css/main.7e0248f2.css",
+    "main.js": "/recommendations/static/js/main.4cae547e.js",
+    "index.html": "/recommendations/index.html",
+    "main.7e0248f2.css.map": "/recommendations/static/css/main.7e0248f2.css.map",
+    "main.4cae547e.js.map": "/recommendations/static/js/main.4cae547e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7e0248f2.css",
+    "static/js/main.4cae547e.js"
+  ]
+}
