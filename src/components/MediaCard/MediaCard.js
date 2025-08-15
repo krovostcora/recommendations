@@ -41,7 +41,7 @@ export default function MediaCard({
             }
         };
         checkFavorite();
-    }, [user, resolvedDocId, isFavoriteProp]);
+    }, [user, resolvedDocId, isFavoriteProp, docRef]);
 
     const toggleFavorite = async () => {
         if (!user) {

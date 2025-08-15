@@ -1,71 +1,96 @@
-/* ===== GOOGLE FONTS IMPORT ===== */
+/* ===== GOOGLE FONTS ===== */
 @import url('https://fonts.googleapis.com/css2?family=Original+Surfer&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-/* ===== BASE STYLES ===== */
+/* ===== COLOR VARIABLES ===== */
+:root {
+    --primary-color: #8A4CB3;
+    --primary-hover: #75B34C;
+    --dark-bg: #222;
+    --dark-card: #333;
+    --dark-border: #555;
+    --light-bg: #f5f5f5;
+    --text-color: #333;
+    --dark-text: #eee;
+}
+
+/* ===== BASE ===== */
 body {
     margin: 0;
     font-family: 'Work Sans', sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.5;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Logo styling */
-.logo {
-    height: 60px;
-    width: auto;
-    vertical-align: middle;
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-/* Headings styling */
+/* ===== TYPOGRAPHY ===== */
 h1, h2, h3 {
     font-family: 'Original Surfer', sans-serif;
-    color: #8A4CB3;
+    color: var(--primary-color);
+    margin-top: 0;
 }
 
-/* Link styling */
 a {
     text-decoration: none;
     color: inherit;
     text-shadow: 2px 5px 2px rgba(0, 0, 0, 0.1);
+    transition: color 0.3s ease;
 }
 
-/* ===== NAVIGATION BAR ===== */
+/* ===== NAVBAR ===== */
 .navbar {
     display: flex;
     justify-content: space-between;
-    background-color: #8A4CB3;
-    padding: 1rem 2rem;
     align-items: center;
+    background-color: var(--primary-color);
+    padding: 0.8rem 2rem;
     flex-wrap: wrap;
+    position: relative;
 }
 
+.logo {
+    height: 50px;
+    vertical-align: middle;
+}
+
+/* NAV LINKS */
 .navbar a {
     color: white;
-    margin: 0 2rem;
-    font-weight: 800;
+    margin: 0 1.5rem;
+    font-weight: 700;
     transition: color 0.3s;
 }
 
 .navbar a:hover,
 .navbar a.active {
-    color: #75B34C;
+    color: var(--primary-hover);
 }
 
-/* ===== LAYOUT CONTAINER ===== */
+/* ===== CONTAINER ===== */
 .container {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
 }
 
-/* ===== RECOMMENDATION CARD ===== */
+/* ===== CARDS ===== */
 .recommendation-card {
     border: 1px solid #ddd;
-    border-left: 6px solid #8A4CB3;
+    border-left: 6px solid var(--primary-color);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 8px;
     background-color: white;
+    transition: box-shadow 0.3s;
+}
+
+.recommendation-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* ===== FILTER BAR ===== */
@@ -75,6 +100,13 @@ a {
     margin-right: 1rem;
     border-radius: 5px;
     border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.filter-bar input:focus,
+.filter-bar select:focus {
+    border-color: var(--primary-color);
 }
 
 /* ===== HOME PAGE ===== */
@@ -87,7 +119,7 @@ a {
     text-align: center;
 }
 
-/* Scroll section styling */
+/* ===== SCROLL SECTION ===== */
 .scroll-section h3 {
     margin-bottom: 10px;
     text-align: center;
@@ -107,11 +139,12 @@ a {
     font-size: 20px;
     cursor: pointer;
     border-radius: 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .scroll-controls button:hover {
     background-color: #666;
+    transform: scale(1.05);
 }
 
 .scroll-container {
@@ -143,7 +176,6 @@ a {
     color: white;
     font-size: 24px;
     cursor: pointer;
-    margin-left: auto;
     transition: color 0.3s;
 }
 
@@ -153,15 +185,13 @@ a {
 
 /* ===== DARK THEME ===== */
 body.dark-theme {
-    background-color: #222;
-    color: #eee;
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
 }
 
-body.dark-theme .recommendation-card,
-body.dark-theme .book-card,
-body.dark-theme .movie-card {
-    background-color: #333;
-    border-color: #555;
+body.dark-theme .recommendation-card {
+    background-color: var(--dark-card);
+    border-color: var(--dark-border);
 }
 
 body.dark-theme h1,
@@ -172,9 +202,9 @@ body.dark-theme h3 {
 
 /* ===== LOGIN BUTTON ===== */
 .login-button {
-    background-color: #8A4CB3;
+    background-color: var(--primary-color);
     color: white;
-    border: 2px solid #8A4CB3;
+    border: 2px solid var(--primary-color);
     padding: 0.5rem 1.2rem;
     border-radius: 20px;
     font-weight: 600;
@@ -185,10 +215,9 @@ body.dark-theme h3 {
 
 .login-button:hover {
     background-color: white;
-    color: #8A4CB3;
+    color: var(--primary-color);
 }
 
-/* Dark theme login button */
 body.dark-theme .login-button {
     background-color: #e9c3ff;
     color: #222;
