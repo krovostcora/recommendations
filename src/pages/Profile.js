@@ -3,7 +3,7 @@ import { db } from '../firebase';
 import { useEffect, useState } from 'react';
 
 function Profile() {
-    const { user } = useAuth(); // Отримуємо користувача з контексту
+    const { user } = useAuth();
     const [favorites, setFavorites] = useState([]);
     const [likes, setLikes] = useState({});
 
@@ -31,7 +31,7 @@ function Profile() {
         updatedLikes[id] = !updatedLikes[id];
 
         setLikes(updatedLikes);
-        localStorage.setItem('likes', JSON.stringify(updatedLikes)); // Зберігаємо в localStorage
+        localStorage.setItem('likes', JSON.stringify(updatedLikes));
     };
 
     return (
@@ -44,7 +44,7 @@ function Profile() {
                             <img src={item.image} alt={item.name} />
                             <h3>{item.name}</h3>
                             <button onClick={() => handleLike(item.id)}>
-                                {/*{likes[item.id] ? '❤️' : '🤍'} /!* Іконка залежно від лайка *!/*/}
+                                {/*{likes[item.id] ? '❤️' : '🤍'} /!* Icon depending on like *!/*/}
                             </button>
                         </div>
                     ))

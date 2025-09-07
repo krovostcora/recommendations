@@ -54,7 +54,7 @@ export default function MediaCard({
             if (isFavorite) {
                 await deleteDoc(docRef);
                 setIsFavorite(false);
-                onFavoriteToggle?.(false, resolvedDocId); // 👈 виклик
+                onFavoriteToggle?.(false, resolvedDocId);
             } else {
                 const itemData = {
                     id: id.toString(),
@@ -72,7 +72,7 @@ export default function MediaCard({
                 };
                 await setDoc(docRef, itemData);
                 setIsFavorite(true);
-                onFavoriteToggle?.(true, resolvedDocId); // 👈 виклик
+                onFavoriteToggle?.(true, resolvedDocId);
             }
         } catch (e) {
             console.error("Error toggling favorite:", e);
