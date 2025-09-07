@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { db } from '../firebase';
-import { doc, setDoc, deleteDoc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, setDoc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
 
 export function useFavorites() {
