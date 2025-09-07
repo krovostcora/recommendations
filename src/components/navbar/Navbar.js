@@ -14,14 +14,14 @@ export default function Navbar() {
 
     return (
         <header className="navbar">
-            {/* Верхній ряд */}
+            {/* Upper row */}
             <div className="top-row">
                 <NavLink to="/" className="logo-link" onClick={closeMenu}>
                     <img src="/logo.png" alt="Home" className="logo" />
                 </NavLink>
             </div>
 
-            {/* Нижній ряд — головні розділи */}
+            {/* Lower row */}
             <nav className="main-links" aria-label="Primary">
                 <NavLink to="/books" className={({ isActive }) => (isActive ? 'active' : '')}>Books</NavLink>
                 <NavLink to="/movies" className={({ isActive }) => (isActive ? 'active' : '')}>Movies</NavLink>
@@ -29,7 +29,7 @@ export default function Navbar() {
                 <NavLink to="/cartoons" className={({ isActive }) => (isActive ? 'active' : '')}>Cartoons</NavLink>
             </nav>
 
-            {/* Secondaries — випадають з гамбургера на мобільному */}
+            {/* Secondaries — hamburger menu */}
             <nav
                 id="secondary-menu"
                 className={`secondary-menu ${menuOpen ? 'active' : ''}`}
